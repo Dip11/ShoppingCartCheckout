@@ -50,13 +50,13 @@ export default class PromotionalRulesService implements PromotionalRulesServiceI
         let countProductCode = 0;
         let discountedPrice = 0;
         basket.forEach((product) => {
-            if (product.product_code == rule?.productCode) {
+            if (product.productCode == rule?.productCode) {
                 countProductCode += 1;
             }
         })
         if (countProductCode >= 2) {
             basket.forEach((product) => {
-                if(product.product_code == rule?.productCode && rule.newPrice !== undefined){
+                if(product.productCode == rule?.productCode && rule.newPrice !== undefined){
                     discountedPrice += product.price  - rule?.newPrice;
                     return product;
                 } else{

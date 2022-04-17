@@ -15,7 +15,7 @@ function checkout(req: Request<{}, {}, string[]>, res: Response) {
 
     // Find the Product from the prodcucts data and create the basket with all member data
     productCodes.forEach((code => {
-        let product = products.find((product) => product.product_code == code);
+        let product = products.find((product) => product.productCode == code);
         if (product) {
             basket.push(product);            
         }
