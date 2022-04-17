@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CommonState } from '../../app/contracts/common.interface';
 import { ProductInterface } from '../../app/contracts/product/product.interface';
-import { RootState, AppThunk } from '../../app/store';
+import { RootState } from '../../app/store';
 import { addNewProduct, fetchProducts } from './productListApi';
 
 // Declaring the Initial Product State 
@@ -10,7 +10,7 @@ const initialState: { products :ProductInterface[] } & CommonState  = {
     products : []
 }
 
-// Createing Async Thunk for getting Product list
+// Creating Async Thunk for getting Product list
 export const getProductListAsync = createAsyncThunk(
   'product/fetchProducts',
   async () => {
@@ -18,7 +18,7 @@ export const getProductListAsync = createAsyncThunk(
   }
 );
 
-// Createing Async Thunk for adding new product
+// Creating Async Thunk for adding new product
 export const addNewProductAsync = createAsyncThunk(
   'product/addNewProduct',
   async (product: ProductInterface) => {

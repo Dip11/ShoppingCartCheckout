@@ -3,7 +3,7 @@ import { CommonState } from '../../app/contracts/common.interface';
 import { ProductInterface } from '../../app/contracts/product/product.interface';
 import { RootState } from '../../app/store';
 
-interface BasketInterface {
+export interface BasketInterface {
   basket: ProductInterface[];
 };
 
@@ -18,7 +18,10 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     addToBasket: (state, action: PayloadAction<ProductInterface>) => {  
-      state.basket.push(action.payload);
+      state.basket = [...state.basket, action.payload];      
+    },
+    emptyTheBasket: (state) => {  
+      state.basket = [];   
     },
   },
   extraReducers: (builder) => {
@@ -26,8 +29,10 @@ export const basketSlice = createSlice({
   },
 });
 
+export const basket = (state: RootState) => state.basket.basket;
+
 export const basketQuantity = (state: RootState) => state.basket.basket.length;
 
-export const { addToBasket } = basketSlice.actions;
+export const { addToBasket, emptyTheBasket } = basketSlice.actions;
 
 export default basketSlice.reducer;

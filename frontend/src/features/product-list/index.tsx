@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ProductInterface } from '../../app/contracts/product/product.interface';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { addToBasket, basketQuantity } from '../basket/basketStore';
+import { addToBasket, basket, basketQuantity, emptyTheBasket } from '../basket/basketStore';
+import { checkoutAsync, totalPrice } from '../checkout/checkoutStore';
 import { addNewProductAsync, getProductListAsync, productList } from './productListStore';
 
 export default function ProductListView() {
@@ -17,6 +18,8 @@ export default function ProductListView() {
     
     // Getting the total number of products of the Basket
     const basketQty = useAppSelector(basketQuantity);
+    const basketAllProducts = useAppSelector(basket);
+    const totalPriceOfTheProduct = useAppSelector(totalPrice);
 
 
     useEffect(() => {
@@ -34,6 +37,11 @@ export default function ProductListView() {
 
         // Dispatching function to add new product into the API 
         dispatch(addNewProductAsync(product));
+    }
+
+    const handleCheckout = () => {
+        dispatch(checkoutAsync(basketAllProducts));
+        dispatch(emptyTheBasket());
     }
     
     return (
@@ -72,7 +80,7 @@ export default function ProductListView() {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>product
+                            <tbody>
                                 {products.map(product => {
                                     return <tr key={product.productCode}>
                                         <td>{product.productCode}</td>
@@ -88,6 +96,14 @@ export default function ProductListView() {
                             </tbody>
                         </table>
                     </div> 
+                </div>
+                <div className="row">
+                    <div className="col-md-6">Total Price: {totalPriceOfTheProduct}</div>
+                    <div className="col-md-6">
+                        <button className="btn btn-success float-right" onClick={handleCheckout}>
+                            Checkout
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
