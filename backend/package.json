@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "npx ts-node server.ts"
+    "start": "npx ts-node server.ts",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage"
   },
   "keywords": [],
   "author": "Dipta Barua",
