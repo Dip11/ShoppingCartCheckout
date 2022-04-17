@@ -1,10 +1,9 @@
 import express from 'express';
 var router = express.Router();
-var ProductController = require('../controllers/product.controller');
+import { getAllProduct, addProduct } from '../controllers/product.controller'
 
+router.get('/get-all', getAllProduct);
 
-router.get('/get-all', ProductController.getAllProduct);
-
-router.post('/', ProductController.addProduct);
+router.post('/', addProduct);
 
 export default router;
