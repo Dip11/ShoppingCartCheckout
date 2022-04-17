@@ -13,7 +13,7 @@ routes(app);
 
 const port = process.env.PORT || 5000;
 
-app.listen(process.env.port, () => {
+app.listen(port, () => {
     console.log(`Start on port ${port}.`);
 })
 
