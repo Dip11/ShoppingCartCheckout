@@ -29,9 +29,7 @@ function checkout(req: Request<{}, {}, string[]>, res: Response) {
 
     // Get the total price from Checkout
     const totalPrice = checkOutService.getTotal();
-    res.status(200).json({
-        data: totalPrice
-    });
+    res.status(200).json(totalPrice);
 };
 
 export {checkout}
