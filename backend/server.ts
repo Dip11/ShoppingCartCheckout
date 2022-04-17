@@ -1,4 +1,5 @@
 import express from 'express';
+import 'dotenv/config';
 const routes = require("./src/routes/index.routes");
 
 
@@ -10,7 +11,9 @@ app.use(express.urlencoded({ extended: true }))
 // Routes
 routes(app);
 
-app.listen(3000, () => {
-    console.log("Start on port 3000.")
+const port = process.env.PORT || 5000;
+
+app.listen(process.env.port, () => {
+    console.log(`Start on port ${port}.`);
 })
 
