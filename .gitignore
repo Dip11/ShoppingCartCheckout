@@ -1,2 +1,5 @@
 # Ignore all the node_modules folder
 node_modules/
+
+# Ignore all code coverage report
+coverage/
