@@ -3,3 +3,7 @@ node_modules/
 
 # Ignore all code coverage report
 coverage/
+
+# misc
+.DS_Store
+.env
