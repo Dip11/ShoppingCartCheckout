@@ -1,19 +1,29 @@
 import { useEffect, useState } from 'react';
 import { ProductInterface } from '../../app/contracts/product/product.interface';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { addToBasket, basketQuantity } from '../basket/basketStore';
 import { addNewProductAsync, getProductListAsync, productList } from './productListStore';
 
 export default function ProductListView() {
+    const dispatch = useAppDispatch();
+
+    // Getting the Products from the Store
     const products = useAppSelector(productList);
+
+    // Declaring local State Variable for Adding a Product
     const [productCode, setProductCode] = useState<string>("");
     const [productName, setProductName] = useState<string>("");
     const [productPrice, setProductPrice] = useState<number>(0);
+    
+    // Getting the total number of products of the Basket
+    const basketQty = useAppSelector(basketQuantity);
 
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
+        // Dispatching Funtion to the product list from the API 
         dispatch(getProductListAsync());
     }, [])
+
 
     const handelAddNewProduct = () => {
         let product: ProductInterface = {
@@ -21,12 +31,19 @@ export default function ProductListView() {
             name: productName,
             price: productPrice
         }
+
+        // Dispatching function to add new product into the API 
         dispatch(addNewProductAsync(product));
     }
     
     return (
         <>
             <div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h5>Product in the Basket:  <strong>{basketQty}</strong> </h5>
+                    </div>
+                </div>
                 <div className="row">
                     <h5>Add New Product</h5>
                     <div className="col-md-3">
@@ -55,14 +72,14 @@ export default function ProductListView() {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {products.map(item => {
-                                    return <tr key={item.productCode}>
-                                        <td>{item.productCode}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.price}€</td>
+                            <tbody>product
+                                {products.map(product => {
+                                    return <tr key={product.productCode}>
+                                        <td>{product.productCode}</td>
+                                        <td>{product.name}</td>
+                                        <td>{product.price}€</td>
                                         <td>
-                                            <button className="btn btn-primary">
+                                            <button className="btn btn-primary" onClick={()=>dispatch(addToBasket(product))}>
                                                 Add to Basket
                                             </button>
                                         </td>

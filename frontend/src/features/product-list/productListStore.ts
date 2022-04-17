@@ -4,12 +4,13 @@ import { ProductInterface } from '../../app/contracts/product/product.interface'
 import { RootState, AppThunk } from '../../app/store';
 import { addNewProduct, fetchProducts } from './productListApi';
 
-
+// Declaring the Initial Product State 
 const initialState: { products :ProductInterface[] } & CommonState  = {
     loading : false,
     products : []
 }
 
+// Createing Async Thunk for getting Product list
 export const getProductListAsync = createAsyncThunk(
   'product/fetchProducts',
   async () => {
@@ -17,6 +18,7 @@ export const getProductListAsync = createAsyncThunk(
   }
 );
 
+// Createing Async Thunk for adding new product
 export const addNewProductAsync = createAsyncThunk(
   'product/addNewProduct',
   async (product: ProductInterface) => {
